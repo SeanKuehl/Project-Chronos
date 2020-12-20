@@ -32,6 +32,8 @@ public class DateHandler {
         int integerMonth = calendar.get(Calendar.MONTH);
         //the month is between 0-11
         
+        //January, February, March, April, May, June, July, August, September, October, November, December
+        
         String[] stringMonthArray = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
         return stringMonthArray[integerMonth];
     }
@@ -45,7 +47,7 @@ public class DateHandler {
         int integerDay = calendar.get(Calendar.DAY_OF_WEEK) - 1;
         //Sunday is counted as a 1, meaning this number must be made -1 to work in an array
         String[] daysOfWeekArray = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
-        
+        //Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday
         return daysOfWeekArray[integerDay];
     }
     
