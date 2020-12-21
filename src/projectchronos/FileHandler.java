@@ -38,13 +38,29 @@ public class FileHandler {
         }
   }
     
+    public boolean CheckIfFileEmpty(){
+        
+        try {
+          File myObj = new File("EventSaveFile.txt");
+          
+          Scanner myReader = new Scanner(myObj);
+          
+          int test = Integer.parseInt(myReader.nextLine());
+          
+          myReader.close();
+        } catch (Exception e) {
+          
+          return true;
+        }
+        
+        return false;
+    }
+    
     public int ReadEventsFromFile(){
         
           try {
           File myObj = new File("EventSaveFile.txt");
-          if (myObj.length() != 0){
-              return -1;
-          }
+          
           Scanner myReader = new Scanner(myObj);
           while (myReader.hasNextLine()) {
             int numberOfEvents = Integer.parseInt(myReader.nextLine());
@@ -81,6 +97,7 @@ public class FileHandler {
                 }
                 description = description.substring(0, description.length()-1); //removes the percent sign off the end
                 eh.AddEvent(month, day, year, time, description, idNumber);
+                
                 
                 
             }

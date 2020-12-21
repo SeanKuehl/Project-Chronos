@@ -70,7 +70,13 @@ public class EventHandler {
     public void LoadEvents(){
         //also sets the IdBase of the Event class
         FileHandler fh = new FileHandler();
-        fh.ReadEventsFromFile();
+        if (fh.CheckIfFileEmpty()){
+            
+        }
+        else {
+            fh.ReadEventsFromFile();
+        }
+        
     }
     
     
