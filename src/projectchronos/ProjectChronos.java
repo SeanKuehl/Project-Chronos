@@ -7,6 +7,7 @@ package projectchronos;
 
 import GUIPresets.AddEventPanel;
 import GUIPresets.ListEventsPanel;
+import GUIPresets.MainMenuPanel;
 import GUIPresets.RemoveEventPanel;
 import java.awt.Dimension;
 import javax.swing.JFrame;
@@ -22,15 +23,72 @@ public class ProjectChronos {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        AddEventMenu();
-        ListEventsMenu();   //list menu doesn't error if there are none to show, so I don't
+        
+        FileHandler fh = new FileHandler();
+        fh.SaveEventsToFile();
+        fh.ReadEventsFromFile();
+        
+    
+        
+        int userChoice = -1;
+        while (true){
+            userChoice = MainMenu();
+            
+            switch (userChoice){
+                case 1:
+                    AddEventMenu();
+                    break;
+                case 2:
+                    ListEventsMenu();
+                    break;
+                case 3:
+                    RemoveEventMenu();
+                    break;
+                case 4:
+                    //exit menu
+                    break;
+            }
+        }
+        
+        
+        
+       // ListEventsMenu();   //list menu doesn't error if there are none to show, so I don't
         //need to worry about that when reading from files later
-        RemoveEventMenu();
-        EventHandler eh = new EventHandler();
-        eh.PrintEvents();
+       // RemoveEventMenu();
+       // EventHandler eh = new EventHandler();
+       // eh.PrintEvents();
         
         
         
+    }
+    
+    private static int MainMenu(){
+        JFrame frame = new JFrame();
+        
+        MainMenuPanel mainMenu = new MainMenuPanel();
+        
+        
+        //addPanel.setSize(new Dimension(800,600));
+        frame.setContentPane(mainMenu);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   //I may want to change this later so that it saves when I click the x in the top right
+        frame.setSize(new Dimension(800,600));
+        frame.setVisible(true);
+        
+        int noNextMenuSelected = 0;
+        
+        
+        
+        
+        
+        
+        
+        
+        while (mainMenu.changeMenuInteger == noNextMenuSelected){
+            
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   //this needs to be here otherwise nothing will happen
+        }
+        frame.setVisible(false);
+        return mainMenu.changeMenuInteger;
     }
     
     private static void RemoveEventMenu(){

@@ -51,4 +51,8 @@ public class Event {
         return idNumber;
     }
     
+    public int GetIdBase(){
+        return idBase;
+    }
+    
 }

@@ -50,6 +50,16 @@ public class EventHandler {
         return eventList;
     }
     
+    public void SaveEvents(){
+        int idBase = eventList.get(0).GetIdBase();
+        FileHandler fh = new FileHandler();
+        fh.SaveEventsToFile(eventList, idBase);
+    }
+    
+    public void LoadEvents(){
+        //also sets the IdBase of the Event class
+    }
+    
     
     
 }
