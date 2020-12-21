@@ -18,6 +18,8 @@ public class Event {
     private String year;
     private String time;
     private String description;
+    private int idNumber;
+    private static int idBase = Integer.MIN_VALUE;
     
     public Event(String passedMonth, String passedDay, String passedYear, String passedTime, String passedDescription){
         month = passedMonth;
@@ -25,6 +27,28 @@ public class Event {
         year = passedYear;
         time = passedTime;
         description = passedDescription;
+        idNumber = NewId();
+    }
+    
+    private int NewId(){
+        idBase += 1;
+        return idBase;
+    }
+    
+    public void PrintThis(){
+        System.out.println(month+" "+day+" "+year+" "+time+" "+description+" "+idNumber);
+    }
+    
+    public String GetEventAsDisplayString(){
+        String toReturn = " ";
+        toReturn += month+" "+day+" "+year+" "+time+"\n";
+        toReturn += idNumber+"\n";
+        toReturn += description+"\n";
+        return toReturn;
+    }
+    
+    public int GetId(){
+        return idNumber;
     }
     
 }

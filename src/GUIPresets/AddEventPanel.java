@@ -6,6 +6,7 @@
 package GUIPresets;
 
 import projectchronos.DateHandler;
+import projectchronos.EventHandler;
 
 /**
  *
@@ -218,7 +219,9 @@ public class AddEventPanel extends javax.swing.JPanel {
         String year = jComboBox3.getSelectedItem().toString();
         String time = jTextField1.getText();
         String description = jTextArea1.getText();
-        //call "add event to list" func
+        
+        EventHandler eh = new EventHandler();
+        eh.AddEvent(month, day, year, time, description);
         
         changeMenuInteger = 1;
     }//GEN-LAST:event_jButton1ActionPerformed

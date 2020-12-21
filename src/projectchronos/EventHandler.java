@@ -23,12 +23,33 @@ public class EventHandler {
         
     }
     
+    public void PrintEvents(){
+        for (int i = 0; i< eventList.size();i++){
+            eventList.get(i).PrintThis();
+        }
+    }
+    
     public void AddEvent(String passedMonth, String passedDay, String passedYear, String passedTime, String passedDescription){
         eventList.add(new Event(passedMonth, passedDay, passedYear, passedTime, passedDescription));
     }
     
-    public void RemoveEvent(int indexOfEventToRemove){
+    public void RemoveEvent(int idNumberOfEventToRemove){
+        int eventIdNumber = 0;
+        
+        
+        for (int i = 0; i<eventList.size();i++){
+            eventIdNumber = eventList.get(i).GetId();
+            if (eventIdNumber == idNumberOfEventToRemove){
+                eventList.remove(i);  //this remove the element at index i
+            }
+        }
         
     }
+    
+    public ArrayList<Event> GetEventList(){
+        return eventList;
+    }
+    
+    
     
 }
