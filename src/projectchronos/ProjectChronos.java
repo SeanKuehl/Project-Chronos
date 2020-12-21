@@ -25,13 +25,15 @@ public class ProjectChronos {
         // TODO code application logic here
         
         FileHandler fh = new FileHandler();
-        fh.SaveEventsToFile();
-        fh.ReadEventsFromFile();
+        EventHandler eh = new EventHandler();
+        eh.LoadEvents();    //this now works even with an empty file!
+        
+        
         
     
-        
+        boolean running = true;
         int userChoice = -1;
-        while (true){
+        while (running){
             userChoice = MainMenu();
             
             switch (userChoice){
@@ -45,7 +47,9 @@ public class ProjectChronos {
                     RemoveEventMenu();
                     break;
                 case 4:
-                    //exit menu
+                    
+                    eh.SaveEvents();
+                    running = false;
                     break;
             }
         }

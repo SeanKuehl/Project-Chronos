@@ -5,6 +5,9 @@
  */
 package projectchronos;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
  *
  * @author turqo
@@ -19,7 +22,7 @@ public class Event {
     private String time;
     private String description;
     private int idNumber;
-    private static int idBase = Integer.MIN_VALUE;
+    private static int idBase = -100000000;
     
     public Event(String passedMonth, String passedDay, String passedYear, String passedTime, String passedDescription){
         month = passedMonth;
@@ -30,8 +33,22 @@ public class Event {
         idNumber = NewId();
     }
     
+    public Event(String passedMonth, String passedDay, String passedYear, String passedTime, String passedDescription, int passedId){
+        //this one is for loading them in from file
+        month = passedMonth;
+        day = passedDay;
+        year = passedYear;
+        time = passedTime;
+        description = passedDescription;
+        idNumber = passedId;
+    }
+    
+    public void SetIdBase(int baseReadFromFile){
+        idBase = baseReadFromFile;
+    }
+    
     private int NewId(){
-        idBase += 1;
+        idBase++;
         return idBase;
     }
     
@@ -53,6 +70,20 @@ public class Event {
     
     public int GetIdBase(){
         return idBase;
+    }
+    
+    public FileWriter SaveThisEvent(FileWriter writer) throws IOException{
+        
+        writer.write(idNumber+"\n");
+        writer.write(month+"\n");
+        writer.write(day+"\n");
+        writer.write(year+"\n");
+        writer.write(time+"\n");
+        writer.write(description+"\n");
+        writer.write("%\n");
+        return writer;
+        
+        
     }
     
 }

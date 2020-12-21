@@ -21,10 +21,13 @@ public class FileHandler {
     public void SaveEventsToFile(ArrayList<Event> toSave, int idBase) {
         try {
           FileWriter myWriter = new FileWriter("EventSaveFile.txt");
-          myWriter.write(idBase);
+          myWriter.write(toSave.size()+"\n");   //this is so it knows how many events to expect
+          myWriter.write(idBase+"\n");
+          
           
           for (int i = 0; i< toSave.size();i++){
               //the format with % as last line
+              myWriter = toSave.get(i).SaveThisEvent(myWriter);
           }
           
           myWriter.close();
@@ -35,19 +38,59 @@ public class FileHandler {
         }
   }
     
-    public void ReadEventsFromFile(){
+    public int ReadEventsFromFile(){
+        
           try {
           File myObj = new File("EventSaveFile.txt");
+          if (myObj.length() != 0){
+              return -1;
+          }
           Scanner myReader = new Scanner(myObj);
           while (myReader.hasNextLine()) {
-            String data = myReader.nextLine();
-            System.out.println(data);
+            int numberOfEvents = Integer.parseInt(myReader.nextLine());
+            int idBase = Integer.parseInt(myReader.nextLine());
+            //wait until later, need an event before we can set event.idBase
+            EventHandler eh = new EventHandler();
+            
+            int idNumber = -1;
+            String month = " ";
+            String day = " ";
+            String year = " ";
+            String time = " ";
+            String description = " ";
+            String temp = " ";
+            for (int i = 0; i<numberOfEvents;i++){
+                idNumber = Integer.parseInt(myReader.nextLine());
+                month = myReader.nextLine();
+                day = myReader.nextLine();
+                year = myReader.nextLine();
+                time = myReader.nextLine();
+                
+                temp = myReader.nextLine();
+                while (temp != "%"){
+                    description += temp;
+                    if (myReader.hasNextLine()){
+                        temp = myReader.nextLine();
+                        
+                    }
+                    else {
+                        break;
+                    }
+                    
+                    
+                }
+                description = description.substring(0, description.length()-1); //removes the percent sign off the end
+                eh.AddEvent(month, day, year, time, description, idNumber);
+                
+                
+            }
           }
           myReader.close();
         } catch (FileNotFoundException e) {
           System.out.println("An error occurred.");
           e.printStackTrace();
         }
+          return 1;
     }
     
 }

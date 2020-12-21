@@ -33,6 +33,10 @@ public class EventHandler {
         eventList.add(new Event(passedMonth, passedDay, passedYear, passedTime, passedDescription));
     }
     
+    public void AddEvent(String passedMonth, String passedDay, String passedYear, String passedTime, String passedDescription, int id){
+        eventList.add(new Event(passedMonth, passedDay, passedYear, passedTime, passedDescription, id));
+    }
+    
     public void RemoveEvent(int idNumberOfEventToRemove){
         int eventIdNumber = 0;
         
@@ -51,13 +55,22 @@ public class EventHandler {
     }
     
     public void SaveEvents(){
-        int idBase = eventList.get(0).GetIdBase();
-        FileHandler fh = new FileHandler();
-        fh.SaveEventsToFile(eventList, idBase);
+        
+        if (eventList.size() == 0){
+            
+        }
+        else {
+            int idBase = eventList.get(0).GetIdBase();
+            FileHandler fh = new FileHandler();
+            fh.SaveEventsToFile(eventList, idBase);
+        }
+        
     }
     
     public void LoadEvents(){
         //also sets the IdBase of the Event class
+        FileHandler fh = new FileHandler();
+        fh.ReadEventsFromFile();
     }
     
     
