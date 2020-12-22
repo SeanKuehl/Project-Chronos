@@ -78,7 +78,8 @@ public class DateHandler {
         
         int integerAMPM = calendar.get(Calendar.AM_PM);  
         int AM = 0;
-        int PM = 1;
+        int PM = 1; //in case I need to know this for changes later
+        
         if (integerAMPM == AM){
             stringAMPM = "AM";
         }

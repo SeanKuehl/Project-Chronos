@@ -148,5 +148,27 @@ public class FileHandler {
           
     }
     
+    public void ClearFile(){
+        //deletes file and then creates a new one
+        
+        File myObj = new File("EventSaveFile.txt"); 
+        if (myObj.delete()) { 
+          //file deleted successfully
+        } else {
+          System.exit(0);  //exit, normally an exception
+        } 
+        
+            try {
+          File newObj = new File("EventSaveFile.txt");
+          if (newObj.createNewFile()) {
+            //new file was created with no problems
+          } else {
+            //there was a problem
+          }
+        } catch (IOException e) {
+          System.exit(0);   //exit
+        }
+     }
+    
 }
 

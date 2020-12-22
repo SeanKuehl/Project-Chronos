@@ -41,14 +41,27 @@ public class EventTest {
      * Test of PrintThis method, of class Event.
      */
     @Test
-    public void EventId() {
-        Event first = new Event(" ", " ", " ", " ", " ");
-        int expected = -100000000 + 1;
-        int actual = first.GetId();
-        System.out.println(expected+" "+actual);
+    public void EventFromInputTest() {
+        Event first = new Event("October", "Sunday", "2000", "11:00PM", "cool party going on");
+        String expected = " October Sunday 2000 11:00PM\n"+first.GetId()+"\ncool party going on\n";
+        //there's a space at the start because the produced string starts as " " and adds on
+        String actual = first.GetEventAsDisplayString();
+        
         Assert.assertEquals(expected, actual);
-        //-100000000
+        
     }
+    
+    @Test
+    public void EventFromFileTest() {
+        Event first = new Event("October", "Sunday", "2000", "11:00PM", "cool party going on", 0);
+        String expected = " October Sunday 2000 11:00PM\n0\ncool party going on\n";
+        //there's a space at the start because the produced string starts as " " and adds on
+        String actual = first.GetEventAsDisplayString();
+        
+        Assert.assertEquals(expected, actual);
+    }
+    
+   
 
    
     

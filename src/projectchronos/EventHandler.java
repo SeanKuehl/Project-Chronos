@@ -53,15 +53,19 @@ public class EventHandler {
     }
     
     public void SaveEvents(){
-        
+        FileHandler fh = new FileHandler();
         if (eventList.size() == 0){
-            //there are no events to save, do nothing.
+            //there are no events to save, clear the file in case the user removed tasks
+            //to get to this state
+            
+            fh.ClearFile();
+            
         }
         else {
             int firstElementIndex = 0;
             int idBase = eventList.get(firstElementIndex).GetIdBase();  //here using first element, but could use any because they all have the same static id base
             
-            FileHandler fh = new FileHandler();
+            
             fh.SaveEventsToFile(eventList, idBase);
         }
         
