@@ -58,7 +58,7 @@ public class ProjectChronos {
         
         
         
-       
+       System.exit(0);
         
         
         
