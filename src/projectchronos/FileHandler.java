@@ -17,7 +17,19 @@ import java.util.Scanner;
  * @author turqo
  */
 public class FileHandler {
-    //this class will take care of reading, checking and writing to files
+    
+    //save format:
+    //number of events
+    //event.idBase
+    //(below repeats for each event on file)
+    //id number
+    //month
+    //day
+    //year
+    //time
+    //description
+    //% (signals the end of this event)
+    
     public void SaveEventsToFile(ArrayList<Event> toSave, int idBase) {
         try {
           FileWriter myWriter = new FileWriter("EventSaveFile.txt");
@@ -26,15 +38,17 @@ public class FileHandler {
           
           
           for (int i = 0; i< toSave.size();i++){
-              //the format with % as last line
+              
               myWriter = toSave.get(i).SaveThisEvent(myWriter);
           }
           
           myWriter.close();
-          System.out.println("Successfully wrote to the file.");
+          //System.out.println("Successfully wrote to the file.");  //use this for testing, but not for exe
+          
         } catch (IOException e) {
-          System.out.println("An error occurred.");
-          e.printStackTrace();
+          //System.out.println("An error occurred.");   //use this for testing, but not for exe
+          //e.printStackTrace();
+          System.exit(0);   //for use in the exe where print statements are not preffered
         }
   }
     
@@ -56,17 +70,19 @@ public class FileHandler {
         return false;
     }
     
-    public int ReadEventsFromFile(){
+    public void ReadEventsFromFile(){
         
           try {
-          File myObj = new File("EventSaveFile.txt");
+          File myObj = new File("EventSaveFile.txt");   //this is the name of the save file
           
           Scanner myReader = new Scanner(myObj);
+          
           while (myReader.hasNextLine()) {
             int numberOfEvents = Integer.parseInt(myReader.nextLine());
             int idBase = Integer.parseInt(myReader.nextLine());
-            //wait until later, need an event before we can set event.idBase
+            
             EventHandler eh = new EventHandler();
+            eh.SetEventIdBase(idBase);  //set event.idbase so that any new events made won't have conflicting ids
             
             int idNumber = -1;
             String month = " ";
@@ -75,7 +91,12 @@ public class FileHandler {
             String time = " ";
             String description = " ";
             String temp = " ";
+            
+            int firstElementIndex = 0;
+            boolean firstTime = true;
+            
             for (int i = 0; i<numberOfEvents;i++){
+                
                 idNumber = Integer.parseInt(myReader.nextLine());
                 month = myReader.nextLine();
                 day = myReader.nextLine();
@@ -83,79 +104,49 @@ public class FileHandler {
                 time = myReader.nextLine();
                 
                 temp = myReader.nextLine();
-                while (temp != "%"){
-                    description += temp;
+                while (temp.charAt(firstElementIndex) != '%'){
+                    if (firstTime){
+                        description += temp; 
+                        firstTime = false;
+                    }
+                    else {
+                        //make description text on new lines actually have new lines
+                        description += "\n"+temp;   //the \n is there because it was just smooshing the lines together
+                    }
+                      
+                        
+                    
+                    
+                        
+                    
+                    
                     if (myReader.hasNextLine()){
                         temp = myReader.nextLine();
                         
                     }
                     else {
+                        
                         break;
                     }
                     
                     
                 }
-                description = description.substring(0, description.length()-1); //removes the percent sign off the end
+                
                 eh.AddEvent(month, day, year, time, description, idNumber);
                 
                 
                 
             }
+            
           }
           myReader.close();
         } catch (FileNotFoundException e) {
-          System.out.println("An error occurred.");
-          e.printStackTrace();
+          //System.out.println("An error occurred.");   //use this for testing only and not in the exe
+          //e.printStackTrace();
+          System.exit(0);   //for use in the exe where print statements are not preffered
         }
-          return 1;
+          
     }
     
 }
 
-/*
-
-import java.io.File;  // Import the File class
-import java.io.FileNotFoundException;  // Import this class to handle errors
-import java.util.Scanner; // Import the Scanner class to read text files
-
-public class ReadFile {
-  public static void main(String[] args) {
-    try {
-      File myObj = new File("filename.txt");
-      Scanner myReader = new Scanner(myObj);
-      while (myReader.hasNextLine()) {
-        String data = myReader.nextLine();
-        System.out.println(data);
-      }
-      myReader.close();
-    } catch (FileNotFoundException e) {
-      System.out.println("An error occurred.");
-      e.printStackTrace();
-    }
-  }
-}
-
-
-*/
-
-
-/*
-import java.io.FileWriter;   // Import the FileWriter class
-import java.io.IOException;  // Import the IOException class to handle errors
-
-public class WriteToFile {
-  public static void main(String[] args) {
-    try {
-      FileWriter myWriter = new FileWriter("filename.txt");
-      myWriter.write("Files in Java might be tricky, but it is fun enough!");
-      myWriter.close();
-      System.out.println("Successfully wrote to the file.");
-    } catch (IOException e) {
-      System.out.println("An error occurred.");
-      e.printStackTrace();
-    }
-  }
-}
-
-
-*/

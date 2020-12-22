@@ -22,15 +22,20 @@ public class Event {
     private String time;
     private String description;
     private int idNumber;
-    private static int idBase = -100000000;
+    private static int idBase = -100000000; //not using Integer.MIN_VALUE because it wouldn't let me change it
     
     public Event(String passedMonth, String passedDay, String passedYear, String passedTime, String passedDescription){
+        //this one is for creating them from user input
         month = passedMonth;
         day = passedDay;
         year = passedYear;
         time = passedTime;
         description = passedDescription;
         idNumber = NewId();
+    }
+    
+    public Event(){
+        //this one is so I can set the idBase without actually creating an event
     }
     
     public Event(String passedMonth, String passedDay, String passedYear, String passedTime, String passedDescription, int passedId){
@@ -44,6 +49,7 @@ public class Event {
     }
     
     public void SetIdBase(int baseReadFromFile){
+        //this is used when reading from file(don't want multiple events with the same id)
         idBase = baseReadFromFile;
     }
     
@@ -52,11 +58,10 @@ public class Event {
         return idBase;
     }
     
-    public void PrintThis(){
-        System.out.println(month+" "+day+" "+year+" "+time+" "+description+" "+idNumber);
-    }
+    
     
     public String GetEventAsDisplayString(){
+        //this is used to put the event onto the screen in a text area(see list events panel in action)
         String toReturn = " ";
         toReturn += month+" "+day+" "+year+" "+time+"\n";
         toReturn += idNumber+"\n";
@@ -73,7 +78,7 @@ public class Event {
     }
     
     public FileWriter SaveThisEvent(FileWriter writer) throws IOException{
-        
+        //saving this event to a file then return the FileWriter to continue the saving
         writer.write(idNumber+"\n");
         writer.write(month+"\n");
         writer.write(day+"\n");
@@ -85,5 +90,7 @@ public class Event {
         
         
     }
+    
+    
     
 }

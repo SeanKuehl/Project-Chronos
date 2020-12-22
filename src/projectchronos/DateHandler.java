@@ -21,9 +21,9 @@ public class DateHandler {
     }
     
     public String GetTodaysDate(){
-        Date date = new Date();   // given date, gets current date and time
-        Calendar calendar = GregorianCalendar.getInstance(); // creates a new calendar instance
-        calendar.setTime(date);
+        Date date = new Date();   // gets current time from system
+        Calendar calendar = GregorianCalendar.getInstance(); 
+        calendar.setTime(date); //converts date(probably milis) into something with month and other components
         
         return CurrentDay(calendar)+", "+CurrentMonth(calendar)+", "+CurrentYear(calendar)+" "+CurrentTime(calendar);
     }
@@ -46,6 +46,7 @@ public class DateHandler {
     private String CurrentDay(Calendar calendar){
         int integerDay = calendar.get(Calendar.DAY_OF_WEEK) - 1;
         //Sunday is counted as a 1, meaning this number must be made -1 to work in an array
+        
         String[] daysOfWeekArray = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
         //Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday
         return daysOfWeekArray[integerDay];
@@ -65,17 +66,17 @@ public class DateHandler {
         stringHour = Integer.toString(integerHour);
         
         
-        int integerMinute = calendar.get(Calendar.MINUTE); //doesn't add a zero if the minute is say 4, check for that
+        int integerMinute = calendar.get(Calendar.MINUTE); //doesn't add a zero if the minute is say 4, check for that(4 vs 04)
         int firstDoubleDigit = 10;
         if (integerMinute < firstDoubleDigit){
-            stringMinute = "0"+Integer.toString(integerMinute);
+            stringMinute = "0"+Integer.toString(integerMinute); //adds the needed leading 0 for formatting
         }
         else {
-            stringMinute = Integer.toString(integerMinute);
+            stringMinute = Integer.toString(integerMinute); //it doesn't need a leading 0 and is fine the way it is
         }
         
         
-        int integerAMPM = calendar.get(Calendar.AM_PM);  //0 is AM and 1 is PM
+        int integerAMPM = calendar.get(Calendar.AM_PM);  
         int AM = 0;
         int PM = 1;
         if (integerAMPM == AM){

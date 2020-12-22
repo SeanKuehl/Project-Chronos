@@ -22,17 +22,19 @@ public class ProjectChronos {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        
         
         FileHandler fh = new FileHandler();
+        
         EventHandler eh = new EventHandler();
-        eh.LoadEvents();    //this now works even with an empty file!
+        eh.LoadEvents();    
         
         
         
     
         boolean running = true;
-        int userChoice = -1;
+        int userChoice = -1;    //I made it -1 so that it couldn't default to one of the options
+        
         while (running){
             userChoice = MainMenu();
             
@@ -56,11 +58,7 @@ public class ProjectChronos {
         
         
         
-       // ListEventsMenu();   //list menu doesn't error if there are none to show, so I don't
-        //need to worry about that when reading from files later
-       // RemoveEventMenu();
-       // EventHandler eh = new EventHandler();
-       // eh.PrintEvents();
+       
         
         
         
@@ -72,19 +70,13 @@ public class ProjectChronos {
         MainMenuPanel mainMenu = new MainMenuPanel();
         
         
-        //addPanel.setSize(new Dimension(800,600));
+        
         frame.setContentPane(mainMenu);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   //I may want to change this later so that it saves when I click the x in the top right
         frame.setSize(new Dimension(800,600));
         frame.setVisible(true);
         
         int noNextMenuSelected = 0;
-        
-        
-        
-        
-        
-        
         
         
         while (mainMenu.changeMenuInteger == noNextMenuSelected){
@@ -101,7 +93,7 @@ public class ProjectChronos {
         RemoveEventPanel removePanel = new RemoveEventPanel();
         
         
-        //addPanel.setSize(new Dimension(800,600));
+       
         frame.setContentPane(removePanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   //I may want to change this later so that it saves when I click the x in the top right
         frame.setSize(new Dimension(800,600));
@@ -109,11 +101,7 @@ public class ProjectChronos {
         
         int noNextMenuSelected = 0;
         
-        
-        
-        
-        
-        
+      
         int userIsDone = 1;
         
         while (removePanel.changeMenuInteger == noNextMenuSelected){
@@ -129,7 +117,6 @@ public class ProjectChronos {
         ListEventsPanel listPanel = new ListEventsPanel(eh.GetEventList());
         
         
-        //addPanel.setSize(new Dimension(800,600));
         frame.setContentPane(listPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   //I may want to change this later so that it saves when I click the x in the top right
         frame.setSize(new Dimension(800,600));
@@ -137,11 +124,7 @@ public class ProjectChronos {
         
         int noNextMenuSelected = 0;
         
-        
-        
-        
-        
-        
+       
         int userIsDone = 1;
         
         while (listPanel.changeMenuInteger == noNextMenuSelected){
@@ -154,7 +137,7 @@ public class ProjectChronos {
     private static void AddEventMenu(){
         JFrame frame = new JFrame();
         AddEventPanel addPanel = new AddEventPanel();
-        //addPanel.setSize(new Dimension(800,600));
+        
         frame.setContentPane(addPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   //I may want to change this later so that it saves when I click the x in the top right
         frame.setSize(new Dimension(800,600));
