@@ -22,7 +22,7 @@ public class Event {
     private String time;
     private String description;
     private int idNumber;
-    private static int idBase = -100000000; //not using Integer.MIN_VALUE because it wouldn't let me change it
+    private static int idBase = 0; //so the first event's id is 1
     
     public Event(String passedMonth, String passedDay, String passedYear, String passedTime, String passedDescription){
         //this one is for creating them from user input
